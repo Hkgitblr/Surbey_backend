@@ -3,25 +3,23 @@ name: Spring Boot CI
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout code
+      # ✅ Updated version
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      # 2. Setup Java
+      # ✅ Updated version
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      # 3. Build using Maven
-      - name: Build with Maven
-        run: mvn clean install
+      # ✅ Use Maven wrapper (IMPORTANT)
+      - name: Build
+        run: ./mvnw clean install
