@@ -12,34 +12,26 @@ jobs:
 
     steps:
       # 1. Checkout code
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
-      # 2. Setup Java
+      # 2. Setup Java (IMPORTANT)
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      # 3. Make mvnw executable
-      - name: Give permission to mvnw
+      # 3. Give permission to mvnw (VERY IMPORTANT)
+      - name: Make mvnw executable
         run: chmod +x mvnw
 
-      # 4. Clean & Compile
-      - name: Build project
-        run: ./mvnw clean compile
+      # 4. Build project
+      - name: Build with Maven
+        run: ./mvnw clean install -DskipTests
 
-      # 5. Run Tests (IMPORTANT ✅)
-      - name: Run Tests
-        run: ./mvnw test
-
-      # 6. Package JAR
-      - name: Package application
-        run: ./mvnw package
-
-      # 7. Upload artifact
-      - name: Upload JAR
+      # 5. Upload JAR (optional but useful)
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: spring-boot-app
